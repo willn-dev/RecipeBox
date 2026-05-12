@@ -1,7 +1,6 @@
 <!--Layout.html is the convention name for a base file to inherit from 
 in flask.-->
 
-{% block boilerplate %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,10 +14,12 @@ in flask.-->
         {% endif %}
         
     </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/output.css') }}">
 </head>
-<body>
-    
-</body>
-</html>
 
-{% endblock boilerplate %}
+<body>
+    {% block content %}
+    {% endblock content %}
+</body>
+
+</html>

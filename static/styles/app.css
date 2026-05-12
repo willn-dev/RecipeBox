@@ -1,0 +1,4 @@
+/* user defined css*/
+
+@import "tailwindcss";
+@plugin "daisyui";

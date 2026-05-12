@@ -1,0 +1,28 @@
+{
+  "name": "recipebox",
+  "version": "1.0.0",
+  "description": "placeholder for full stack meal planning and recipe collections.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willn-dev/RecipeBox.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/willn-dev/RecipeBox/issues"
+  },
+  "homepage": "https://github.com/willn-dev/RecipeBox#readme",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.3.0",
+    "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "daisyui": "^5.5.19"
+  }
+}

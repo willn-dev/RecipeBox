@@ -1,0 +1,3 @@
+npx tailwindcss -i ./static/css/app.css -o ./static/css/output.css
+for generating a single output
+continually add flag --watch
