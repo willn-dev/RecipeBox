@@ -1,3 +1,6 @@
-npx tailwindcss -i ./static/css/app.css -o ./static/css/output.css
+npx tailwindcss -i ./static/styles/app.css -o ./static/styles/output.css
 for generating a single output
-continually add flag --watch
+to monitor continually -> add flag --watch
+
+DAISY uses the tailwind concept of positioning via the html 
+tailwind classes for this would be justify-center, not justify-content: center;
