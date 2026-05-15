@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="flex justify-center">
+  <ul>
+    {% for recipe in recipes %}
+      <div>
+        <li>{{recipe[0]}}</li>       
+      </div>
+    {% endfor %}
+
+  </ul>
+</div>
+{% endblock content %}
