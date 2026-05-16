@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, redirect
 import os
 import psycopg2
+
 #------------------------------------------------------------------------------------------------------
 app = Flask(__name__)
 
@@ -28,3 +29,8 @@ def testerdb():
     conn.close()
     return render_template('testingdb.html', recipes=recipes)
     
+@app.route('/newrecipe')
+def newrecipe():
+    conn=get_db_connection()
+    cur = conn.cursor()
+

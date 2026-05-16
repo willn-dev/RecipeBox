@@ -1,6 +1,14 @@
 {% extends 'layout.html' %}
 
 {% block content %}
- <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. &NewLine; Recusandae sunt commodi nulla est assumenda impedit! Corporis repellendus perspiciatis sed, quaerat velit veniam dolor enim nihil asperiores sint rem quam iusto!</p>
+
+  <div class=" text-center header">
+      <h1 class="text-4xl">RecipeBowl</h1>
+   </div>
+
+   <div class="text-center">
+      <a class="link" href="{{url_for('newrecipe')}}">Add New Recipe</a>
+   </div>
+
 {% endblock content %}
 

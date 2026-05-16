@@ -4,3 +4,13 @@
 @plugin "daisyui"{
   themes: all;
 };
+
+
+.grid-container{
+  display: grid;
+  border: 2px solid yellow;
+  grid-template-columns: minmax(200px, 1fr);
+  place-content: center;
+  gap: 1rem;
+  
+}
