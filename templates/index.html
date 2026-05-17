@@ -1,14 +1,22 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+  <div class="flex flex-col">
+      <div class=" flex justify-between mt-8">
+         <div class="flex-1"></div>
+         <div>
+            <h1 class="text-6xl font-mono flex-1 text-center">Recipe Bowl</h1>
+         </div>
+         <div class="flex-1 text-right">b</div>
+      </div>
 
-  <div class=" text-center header">
-      <h1 class="text-4xl">RecipeBowl</h1>
+      <div class="divider divider-primary w-10/12 mx-auto mt-8"></div>
+
+      <div class="flex flex-col items-center md:flex-row gap-1.5 justify-center">
+         <div><p>card placeholder</p></div>
+         <div><p>card placeholder</p></div>
+         <div><p>card placeholder</p></div>
+      </div>
    </div>
-
-   <div class="text-center">
-      <a class="link" href="{{url_for('newrecipe')}}">Add New Recipe</a>
-   </div>
-
 {% endblock content %}
 
