@@ -28,11 +28,22 @@ def testerdb():
     cur.close()
     conn.close()
     return render_template('testingdb.html', recipes=recipes)
-    
+
+
+
 @app.route('/newrecipe')
 def newrecipe():
+    return render_template('add_recipes.html')
+
+    
+@app.route('/newrecipeform')
+def newrecipeadd():
     conn=get_db_connection()
     cur = conn.cursor()
+
+    cur.execute('INSERT INTO')
+
+
 
 @app.route('/settings')
 def settings():
