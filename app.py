@@ -34,3 +34,6 @@ def newrecipe():
     conn=get_db_connection()
     cur = conn.cursor()
 
+@app.route('/settings')
+def settings():
+    return render_template('settings.html')
