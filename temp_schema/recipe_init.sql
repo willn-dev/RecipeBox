@@ -3,7 +3,7 @@ CREATE TYPE preparations AS ENUM ('fresh', 'frozen', 'grated', 'chopped', 'slice
 
 CREATE TABLE IF NOT EXISTS recipes(
     recipe_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name VARCHAR(255),
+    name VARCHAR(255) NOT NULL,
     instructions TEXT
 );
 

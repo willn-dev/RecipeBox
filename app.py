@@ -38,7 +38,7 @@ def newrecipe():
 
     if request.method == 'POST':
 
-        recipename = request.form.get('name')
+        recipename = request.form.get('recipe_name')
         instructions = request.form.get('instructions')
          
         try:

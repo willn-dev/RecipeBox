@@ -2,8 +2,25 @@
 
 <header>
   <h1> Add a New Recipe</h1>
-  
 </header>
+
+<div class="flex flex-col justify-center">
+
+  <form action="{{ url_for('newrecipe') }}" method="post">
+
+    <!--Format for whole form-->
+    <div class="flex flex-row gap-1">
+      <fieldset class="fieldset">
+        <legend class="fieldset-legend">Recipe Name:</legend>
+        <input name="recipe_name" type="text" class="input" placeholder="ex: Grand-pappy's Rhubarb Pie" />
+      </fieldset>
+    </div>
+
+    <div class="flex flex-row gap-1">
+
+    </div>
+  </form>
+</div>
 
 
 
