@@ -1,18 +1,22 @@
-{% extends layout.html %}
+{% extends 'layout.html' %}
 
-<header>
-  <h1> Add a New Recipe</h1>
+{% block content %}
+
+<header> 
+  <h1 class=" mt-8 mb-8 text-6xl font-mono text-center"> Add a New Recipe</h1>
 </header>
 
-<div class="flex flex-col justify-center">
+<div class="divider divider-primary w-10/12 mx-auto mt-8"></div>
+
+<div class="flex flex-col min-h-screen align-center">
 
   <form action="{{ url_for('newrecipe') }}" method="post">
 
     <!--Format for whole form-->
-    <div class="flex flex-row gap-1">
+    <div class="flex flex-row gap-1 justify-center">
       <fieldset class="fieldset">
-        <legend class="fieldset-legend">Recipe Name:</legend>
-        <input name="recipe_name" type="text" class="input" placeholder="ex: Grand-pappy's Rhubarb Pie" />
+        <legend class="fieldset-legend font-mono">Recipe Name:</legend>
+        <input name="recipe_name" type="text" class="input input-lg input-primary" placeholder="ex: Grand-pappy's Rhubarb Pie" />
       </fieldset>
     </div>
 
@@ -22,6 +26,4 @@
   </form>
 </div>
 
-
-
-{% block content %}
+{% endblock content %}
