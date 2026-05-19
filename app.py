@@ -31,17 +31,33 @@ def testerdb():
 
 
 
-@app.route('/newrecipe')
+@app.route('/newrecipe', methods=['GET', 'POST'])
 def newrecipe():
-    return render_template('add_recipes.html')
-
-    
-@app.route('/newrecipeform')
-def newrecipeadd():
-    conn=get_db_connection()
+    conn = get_db_connection()
     cur = conn.cursor()
 
-    cur.execute('INSERT INTO')
+    if request.method == 'POST':
+
+        recipename = request.form.get('name')
+        instructions = request.form.get('instructions')
+         
+        try:
+
+            cur.execute(
+                'INSERT INTO recipes (name, instructions) VALUES(%s, %s) RETURNING recipe_id',
+                (recipename, instructions)
+            )
+
+            recipe_id = cur.fetchone()[0]
+
+            #TODO: build out getting ingredients via a loop. build out form
+
+
+
+        except:
+            pass
+    
+    return render_template('add_recipes.html')
 
 
 
