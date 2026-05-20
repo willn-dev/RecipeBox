@@ -12,17 +12,37 @@
 
   <form action="{{ url_for('newrecipe') }}" method="post">
 
-    <!--Format for whole form-->
     <div class="flex flex-row gap-1 justify-center">
-      <fieldset class="fieldset">
-        <legend class="fieldset-legend font-mono">Recipe Name:</legend>
+      <fieldset class="fieldset mb-5">
+        <legend class="fieldset-legend font-mono text-xl text-center">Name</legend>
         <input name="recipe_name" type="text" class="input input-lg input-primary" placeholder="ex: Grand-pappy's Rhubarb Pie" />
       </fieldset>
     </div>
 
-    <div class="flex flex-row gap-1">
+    <div class="divider divider-accent w-1/2 mx-auto"></div>
+
+
+    <div class="flex flex-row gap-2 justify-center">
+
+      <fieldset class="fieldset">
+        <legend class="fieldset-legend font-mono text-2xl w-1/4">ingredients</legend>
+        <input type="text" name="ingredient" class="input-lg input-accent">
+      </fieldset>
+
+      <div class="divider divider-horizontal divider-accent"></div>
+
+
+      <fieldset class="fieldset">
+        <legend class="fieldset-legend font-mono text-2xl">Instructions</legend>
+        <textarea class="textarea textarea-accent h-70 " placeholder="eg: 1. Heat oven to 350º"></textarea>
+        <div class="label">Optional</div>
+      </fieldset>
+
 
     </div>
+
+
+
   </form>
 </div>
 
