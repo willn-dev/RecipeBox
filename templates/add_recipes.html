@@ -13,28 +13,28 @@
   <form action="{{ url_for('newrecipe') }}" method="post">
 
     <div class="flex flex-row gap-1 justify-center">
-      <fieldset class="fieldset mb-5">
+      <fieldset class="fieldset mb-2 w-1/4">
         <legend class="fieldset-legend font-mono text-xl text-center">Name</legend>
-        <input name="recipe_name" type="text" class="input input-lg input-primary" placeholder="ex: Grand-pappy's Rhubarb Pie" />
+        <input name="recipe_name" type="text" class="input input-lg input-primary w-full text-lg font-mono" placeholder="ex: Grand-pappy's Rhubarb Pie" />
       </fieldset>
     </div>
 
     <div class="divider divider-accent w-1/2 mx-auto"></div>
 
 
-    <div class="flex flex-row gap-2 justify-center">
+    <div class="flex flex-row gap-2 justify-center w-1/2 mx-auto">
 
-      <fieldset class="fieldset">
-        <legend class="fieldset-legend font-mono text-2xl w-1/4">ingredients</legend>
-        <input type="text" name="ingredient" class="input-lg input-accent">
+      <fieldset class="fieldset flex-1 ml-2">
+        <legend class="fieldset-legend font-mono text-2xl">ingredients</legend>
+        <input type="text" name="ingredient" class=" input input-lg input-accent w-full text-lg font-mono">
       </fieldset>
 
       <div class="divider divider-horizontal divider-accent"></div>
 
 
-      <fieldset class="fieldset">
+      <fieldset class="fieldset flex-1 mr-2">
         <legend class="fieldset-legend font-mono text-2xl">Instructions</legend>
-        <textarea class="textarea textarea-accent h-70 " placeholder="eg: 1. Heat oven to 350º"></textarea>
+        <textarea class="textarea textarea-accent h-70 w-full text-lg font-mono" placeholder="eg: 1. Heat oven to 350º"></textarea>
         <div class="label">Optional</div>
       </fieldset>
 
