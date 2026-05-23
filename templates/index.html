@@ -33,7 +33,9 @@
                <h2 class="justify-center card-title">Add Recipe</h2>
                <p>Add something new to your collection!</p>
                <div class="justify-center card-actions">
-                  <button class="btn btn-primary mt-3">New Recipe</button>
+                  <a href="{{ url_for('newrecipe') }}">
+                     <button class="btn btn-primary mt-3">New Recipe</button>
+                  </a>
                </div>
             </div>
          </div>

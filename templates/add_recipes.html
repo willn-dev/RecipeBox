@@ -24,15 +24,16 @@
 
     <div class="flex flex-col md:flex-row gap-2 justify-center w-8/12 mx-auto"> <!-- main form-->
 
-      <fieldset class="fieldset flex-1 md:ml-2">
+      <fieldset class="fieldset flex-1 md:ml-2 overflow-visible">
         <legend class="fieldset-legend font-mono text-2xl">ingredients</legend>
 
-        <div class="flex flex-col">
-          <div class="flex flex-row gap-1">
-            <input type="text" required name="ingredient" class=" input input-lg input-accent w-full text-lg font-mono">
-            <input placeholder="Qty." type="number" name="ingredient-qty" class="input validator input-lg input-accent text-lg font-mono w-1/4">         
+        <div id="ingredient-col" class="flex flex-col">
+          <div class="flex flex-row gap-1 items-center relative">
+            <button class="btn btn-ghost md:btn-xs align-center absolute -left-11 md:-left-6" id="removeIngredient" onclick="this.parentElement.remove()">&times;</button>
+            <input type="text" required name="ingredient_0" class=" input input-lg input-accent w-full text-lg font-mono">
+            <input placeholder="Qty." type="number" name="ingredient_qty_0" class="input validator input-lg input-accent text-lg font-mono w-1/4">         
           </div>
-          <button>new ingredient</button>
+          <button id="add-new-btn" type="button" class="btn btn-neutral mt-3 mb-3">Add New</button>
         </div> 
       </fieldset>
 
@@ -49,5 +50,5 @@
 
   </form>
 </div>
-
+<script src="{{ url_for('static', filename= 'js/add_ingredient.js') }}"></script>
 {% endblock content %}
