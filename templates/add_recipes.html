@@ -30,8 +30,8 @@
         <div id="ingredient-col" class="flex flex-col">
           <div class="flex flex-row gap-1 items-center relative">
             <button class="btn btn-ghost md:btn-xs align-center absolute -left-11 md:-left-6" id="removeIngredient" onclick="this.parentElement.remove()">&times;</button>
-            <input type="text" required name="ingredient_0" class=" input input-lg input-accent w-full text-lg font-mono">
-            <input placeholder="Qty." type="number" name="ingredient_qty_0" class="input validator input-lg input-accent text-lg font-mono w-1/4">         
+            <input type="text" required name="ingredient_name" class=" input input-lg input-accent w-full text-lg font-mono">
+            <input placeholder="Qty." type="number" name="ingredient_qty" class="input validator input-lg input-accent text-lg font-mono w-1/4">         
           </div>
           <button id="add-new-btn" type="button" class="btn btn-neutral mt-3 mb-3">Add New</button>
         </div> 
@@ -46,7 +46,13 @@
       </fieldset>
     </div>
 
+  <div class="flex justify-center">
+    <div class="flex divider divider-accent w-10/12 md:w-8/12"></div>
+  </div>
 
+  <div class="flex flex-row justify-center">
+    <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+  </div>
 
   </form>
 </div>

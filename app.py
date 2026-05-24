@@ -48,12 +48,44 @@ def newrecipe():
                 (recipename, instructions)
             )
 
+            cur.execute(
+                'SELECT id FROM recipes WHERE name = %s',
+                (recipename)
+            )
+
+
+            #Iterating over ingredient list.
+
             recipe_id = cur.fetchone()[0]
+            ingredients = request.form.getlist('ingredient_name')
+            ing_qty = request.form.getlist('ingredient_qty')
 
-            #TODO: build out getting ingredients via a loop. build out form
+            for ingredient, qty in zip(ingredients, ing_qty):
+                cur.execute(
+                    'INSERT INTO ingredients(name)' \
+                    'VALUES(%s)' \
+                    'ON CONFLICT (name) DO NOTHING ' \
+                    'RETURNING ingredient_id;',
+                    (ingredient)
+                )
 
+                ing_id = cur.fetcone()[0]
+                
+                cur.execute(
+                    'INSERT INTO recipes_ingredients(recipe_id, ingredient_id, quantity)' \
+                    'VALUES(%s,%s,%s);',
+                    (recipe_id, ing_id, qty)
+                )
+                #------------------------------------------------------------------------------------------------------
+                    #TODO:
+                        #RESUME HERE, I am crafting the insert for the recipe form to be added into the database
+                        #currently I have the recipe name an instructions added and then the ingredients ing id and qty
+                        # should be associated now in the join table. What do I have to do next? 
+                #------------------------------------------------------------------------------------------------------
 
+            
 
+            
         except:
             pass
     
