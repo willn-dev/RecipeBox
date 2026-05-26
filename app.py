@@ -48,47 +48,44 @@ def newrecipe():
                 (recipename, instructions)
             )
 
-            cur.execute(
-                'SELECT id FROM recipes WHERE name = %s',
-                (recipename)
-            )
-
-
             #Iterating over ingredient list.
 
             recipe_id = cur.fetchone()[0]
             ingredients = request.form.getlist('ingredient_name')
             ing_qty = request.form.getlist('ingredient_qty')
+            print(ingredients, ing_qty)
 
             for ingredient, qty in zip(ingredients, ing_qty):
                 cur.execute(
                     'INSERT INTO ingredients(name)' \
-                    'VALUES(%s)' \
-                    'ON CONFLICT (name) DO NOTHING ' \
-                    'RETURNING ingredient_id;',
-                    (ingredient)
+                    ' VALUES(%s)' \
+                    ' ON CONFLICT (name) DO UPDATE SET name=EXCLUDED.name ' \
+                    ' RETURNING ingredient_id;',
+                    (ingredient,)
                 )
 
-                ing_id = cur.fetcone()[0]
+                ing_id = cur.fetchone()[0]
                 
                 cur.execute(
                     'INSERT INTO recipes_ingredients(recipe_id, ingredient_id, quantity)' \
-                    'VALUES(%s,%s,%s);',
+                    ' VALUES(%s,%s,%s);',
                     (recipe_id, ing_id, qty)
+                
                 )
-                #------------------------------------------------------------------------------------------------------
-                    #TODO:
-                        #RESUME HERE, I am crafting the insert for the recipe form to be added into the database
-                        #currently I have the recipe name an instructions added and then the ingredients ing id and qty
-                        # should be associated now in the join table. What do I have to do next? 
-                #------------------------------------------------------------------------------------------------------
 
-            
+            conn.commit()
+            return redirect(url_for('index'))
+               
 
-            
-        except:
-            pass
-    
+        except Exception as e:
+            conn.rollback()
+            print(f"ERROR: {e}")
+
+        finally:
+            cur.close()
+            conn.close()
+
+
     return render_template('add_recipes.html')
 
 

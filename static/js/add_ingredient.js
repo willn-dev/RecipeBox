@@ -15,15 +15,13 @@ function addIngredient(){
 
     newRow.innerHTML = `
     <button class="btn md:btn-xs btn-ghost align-center absolute -left-11 md:-left-6" id="removeIngredient" onclick="this.parentElement.remove()">&times;</button>
-    <input name = "ingedient_name" type="text" required class= "input input-lg input-accent w-full text-lg font-mono">
+    <input name="ingredient_name" type="text" required class="input input-lg input-accent w-full text-lg font-mono">
     <input placeholder="Qty." type="number" name="ingredient_qty" class="input validator input-lg input-accent text-lg font-mono w-1/4"> 
     `;
 
     newRow.classList.add('mt-2'); 
     
     ingredientContainer.insertBefore(newRow, button);
-    count_ingredients++;
-
 }
 
 document.addEventListener('DOMContentLoaded', button_listen);
