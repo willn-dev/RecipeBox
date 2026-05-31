@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+
+<header> 
+  <h1 class=" mt-8 mb-8 text-6xl font-mono text-center">Edit a Recipe</h1>
+</header>
+
+<div class="divider divider-primary w-10/12 mx-auto mt-8"></div>
+
+
+<div class="flex justify-center">
+  <div class="card card-border bg-base-300 w-1/2">
+    <div class="card-body">
+      <ul>
+        {% for recipe in recipes %}
+          <div>
+            <li class="mt-10 mb-10 text-3xl font-mono text-center">{{recipe[0]}}</li>       
+          </div>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock content %}

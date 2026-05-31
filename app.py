@@ -19,15 +19,15 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/testingdb')
-def testerdb():
+@app.route('/edit')
+def edit():
     conn = get_db_connection()
     cur = conn.cursor()
     cur.execute('SELECT name FROM recipes;')
     recipes = cur.fetchall()
     cur.close()
     conn.close()
-    return render_template('testingdb.html', recipes=recipes)
+    return render_template('edit.html', recipes=recipes)
 
 
 
