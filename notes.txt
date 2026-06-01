@@ -4,3 +4,11 @@ to monitor continually -> add flag --watch
 
 DAISY uses the tailwind concept of positioning via the html 
 tailwind classes for this would be justify-center, not justify-content: center;
+
+
+Issue for sorting ingredients in the edit path:
+    I will have a variable number of ingredients. my ingredients table is dynamic,
+    so can i execute my function a number of times based on the amount of ingList.len
+    I probably need to tweak the js and put this in a separate route? 
+
+    GOOD IDEA in Input Tag -> value="{{ recipe.name if recipe else '' }}"

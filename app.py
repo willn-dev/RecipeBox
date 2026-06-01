@@ -32,8 +32,17 @@ def edit():
         return render_template('edit.html', recipes=recipes)
     
     elif request.method == 'POST':
-        pass
-        request.form('')
+        recipe_id = request.form('recipe_id')
+
+        try:
+            cur.execute('SELECT * FROM recipes WHERE recipe_id = %s', recipe_id)
+            recipies_table = cur.fetchall()
+
+            cur.execute('SELECT')
+        
+        except Exception as e:
+            conn.rollback()
+            print(f"ERROR: {e}")
         
 
 
