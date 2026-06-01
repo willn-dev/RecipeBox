@@ -19,15 +19,23 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/edit')
+@app.route('/edit', methods=['GET', 'POST'])
 def edit():
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute('SELECT name FROM recipes;')
-    recipes = cur.fetchall()
-    cur.close()
-    conn.close()
-    return render_template('edit.html', recipes=recipes)
+
+    if request.method == 'GET':
+        cur.execute('SELECT name, recipe_id FROM recipes;')
+        recipes = cur.fetchall()
+        cur.close()
+        conn.close()
+        return render_template('edit.html', recipes=recipes)
+    
+    elif request.method == 'POST':
+        pass
+        request.form('')
+        
+
 
 
 
