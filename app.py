@@ -35,10 +35,15 @@ def edit():
         recipe_id = request.form('recipe_id')
 
         try:
-            cur.execute('SELECT * FROM recipes WHERE recipe_id = %s', recipe_id)
+            cur.execute('SELECT * FROM recipes WHERE recipe_id = VALUES(%s);', recipe_id)
             recipies_table = cur.fetchall()
 
-            cur.execute('SELECT')
+            cur.execute('SELECT * FROM recipes_ingredients WHERE'\
+                'recipe_id = VALUES(%s)', recipe_id)
+            
+            join_table = cur.fetchall()
+
+            return redirect(url_for('new_recipe', recipes_table=recipies_table, join_table=join_table))
         
         except Exception as e:
             conn.rollback()

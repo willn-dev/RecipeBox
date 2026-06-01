@@ -15,7 +15,9 @@
     <div class="flex flex-row gap-1 justify-center">
       <fieldset class="fieldset mb-2 w-9/12 md:w-1/4">
         <legend class="fieldset-legend font-mono text-xl text-center">Name</legend>
-        <input name="recipe_name" required type="text" class="input input-lg input-primary w-full text-lg font-mono" placeholder="ex: Grand-pappy's Rhubarb Pie" />
+        <input name="recipe_name" required type="text" class="input input-lg input-primary w-full text-lg font-mono"
+         placeholder="ex: Grand-pappy's Rhubarb Pie"
+         value="{{ recipe.name if recipes_table else '' }}">
       </fieldset>
     </div>
 
@@ -41,7 +43,10 @@
 
       <fieldset class="fieldset flex-1 md:mr-2">
         <legend class="fieldset-legend font-mono text-2xl">Instructions</legend>
-        <textarea name="instructions" class="textarea textarea-accent h-70 w-full text-lg font-mono" placeholder="eg: 1. Heat oven to 350º"></textarea>
+        <textarea name="instructions" 
+          class="textarea textarea-accent h-70 w-full text-lg font-mono"
+          placeholder="eg: 1. Heat oven to 350º"
+          value="{{ recipe.instructions if recipes_table else '' }}"></textarea>
         <div class="label">Optional</div>
       </fieldset>
     </div>
