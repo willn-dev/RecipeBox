@@ -17,7 +17,7 @@
         <legend class="fieldset-legend font-mono text-xl text-center">Name</legend>
         <input name="recipe_name" required type="text" class="input input-lg input-primary w-full text-lg font-mono"
          placeholder="ex: Grand-pappy's Rhubarb Pie"
-         value="{{ recipe.name if recipes_table else '' }}">
+         value="{{ recipes_table[0][1] if recipes_table else '' }}">
       </fieldset>
     </div>
 
@@ -46,7 +46,7 @@
         <textarea name="instructions" 
           class="textarea textarea-accent h-70 w-full text-lg font-mono"
           placeholder="eg: 1. Heat oven to 350º"
-          value="{{ recipe.instructions if recipes_table else '' }}"></textarea>
+          value="{{ recipes_table if recipes_table else '' }}"></textarea>
         <div class="label">Optional</div>
       </fieldset>
     </div>

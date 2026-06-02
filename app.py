@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, url_for, redirect
 import os
 import psycopg2
 
+
 #------------------------------------------------------------------------------------------------------
 app = Flask(__name__)
 
@@ -32,23 +33,31 @@ def edit():
         return render_template('edit.html', recipes=recipes)
     
     elif request.method == 'POST':
-        recipe_id = request.form('recipe_id')
+        recipe_id = request.form['recipe_id']
 
         try:
-            cur.execute('SELECT * FROM recipes WHERE recipe_id = VALUES(%s);', recipe_id)
+            cur.execute('SELECT * FROM recipes WHERE recipe_id = %s;', (recipe_id,))
             recipies_table = cur.fetchall()
 
-            cur.execute('SELECT * FROM recipes_ingredients WHERE'\
-                'recipe_id = VALUES(%s)', recipe_id)
+            print('SELECT * FROM recipes_ingredients WHERE ' \
+            'recipe_id = %s')
+            
+            cur.execute('SELECT * FROM recipes_ingredients WHERE ' \
+                'recipe_id = %s', (recipe_id,))
             
             join_table = cur.fetchall()
 
-            return redirect(url_for('new_recipe', recipes_table=recipies_table, join_table=join_table))
+            print(recipies_table)
+            return render_template('add_recipes.html', recipes_table=recipies_table, join_table=join_table)
         
         except Exception as e:
             conn.rollback()
             print(f"ERROR: {e}")
+            return redirect(url_for('edit'))
         
+        finally:
+            cur.close()
+            conn.close()
 
 
 
@@ -102,6 +111,7 @@ def newrecipe():
         except Exception as e:
             conn.rollback()
             print(f"ERROR: {e}")
+            #TODO: ADD A FAILED TO SAVE ERROR PAGE TO RETURN HERE
 
         finally:
             cur.close()
