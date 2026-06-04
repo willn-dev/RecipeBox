@@ -79,11 +79,18 @@ def newrecipe():
 
         recipename = request.form.get('recipe_name')
         instructions = request.form.get('instructions')
+
+        #TODO: RECIPE ID AS HIDDEN INPUT. SET IF AN UPDATE ELSE NONE
+        #TODO: IF HIDDEN INPUT ID EXISTS, HIT AN IF STATEMENT THAT WILL UPDATE FIELDS VS INSERT.
+        #TODO: using recipe_id is good because its unique. if i had the name or instructions as unique, and update would be "new" and double my submissions.
          
         try:
 
             cur.execute(
-                'INSERT INTO recipes (name, instructions) VALUES(%s, %s) RETURNING recipe_id',
+                'INSERT INTO recipes (name, instructions) VALUES(%s, %s)' \
+                ' ON CONFLICT (name, instructions) DO UPDATE SET name = EXCLUDED.name,' \
+                ' instructions = EXCLUDED.instructions' \
+                ' RETURNING recipe_id;',
                 (recipename, instructions)
             )
 
