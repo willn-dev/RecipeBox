@@ -30,11 +30,22 @@
         <legend class="fieldset-legend font-mono text-2xl">ingredients</legend>
 
         <div id="ingredient-col" class="flex flex-col">
-          <div class="flex flex-row gap-1 items-center relative">
-            <button class="btn btn-ghost md:btn-xs align-center absolute -left-11 md:-left-6" id="removeIngredient" onclick="this.parentElement.remove()">&times;</button>
-            <input type="text" required name="ingredient_name" class=" input input-lg input-accent w-full text-lg font-mono">
-            <input placeholder="Qty." type="number" name="ingredient_qty" class="input validator input-lg input-accent text-lg font-mono w-1/4">         
-          </div>
+          <!--DYNAMICALLY ADD EXISTING INGREDIENTS IF EDITING.-->
+          {% if join_table %}
+
+            {% for row in join_table %}
+            <!--value=join_table[row][look at notes for index]-->
+            <!--TODO: ADD EACH ROW THE SAME AS IN JS, NEW QUERY WITH JOIN ON INGREDIENT_ID, NAME-->
+            {% endfor %}
+
+          {% else %}
+            <div class="flex flex-row gap-1 items-center relative">
+              <button class="btn btn-ghost md:btn-xs align-center absolute -left-11 md:-left-6" id="removeIngredient" onclick="this.parentElement.remove()">&times;</button>
+              <input type="text" required name="ingredient_name" class=" input input-lg input-accent w-full text-lg font-mono">
+              <input placeholder="Qty." type="number" name="ingredient_qty" class="input validator input-lg input-accent text-lg font-mono w-1/4">         
+            </div>
+          {% endif %}
+
           <button id="add-new-btn" type="button" class="btn btn-neutral mt-3 mb-3">Add New</button>
         </div> 
       </fieldset>
@@ -45,8 +56,7 @@
         <legend class="fieldset-legend font-mono text-2xl">Instructions</legend>
         <textarea name="instructions" 
           class="textarea textarea-accent h-70 w-full text-lg font-mono"
-          placeholder="eg: 1. Heat oven to 350º"
-          value="{{ recipes_table if recipes_table else '' }}"></textarea>
+          placeholder="eg: 1. Heat oven to 350º">{{ recipes_table[0][2] if recipes_table else '' }}</textarea>
         <div class="label">Optional</div>
       </fieldset>
     </div>

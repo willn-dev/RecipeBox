@@ -3,6 +3,14 @@ import os
 import psycopg2
 
 
+
+#------------------------------------------------------------------------------------------------------
+'''
+TODO:
+find which index instructions is saved in and auto populate that
+find out how to go about populating the ingredients since js runs. maybe take a count of how many in each
+then run my script each time and populate after??
+'''
 #------------------------------------------------------------------------------------------------------
 app = Flask(__name__)
 
@@ -39,14 +47,14 @@ def edit():
             cur.execute('SELECT * FROM recipes WHERE recipe_id = %s;', (recipe_id,))
             recipies_table = cur.fetchall()
 
-            print('SELECT * FROM recipes_ingredients WHERE ' \
-            'recipe_id = %s')
             
-            cur.execute('SELECT * FROM recipes_ingredients WHERE ' \
-                'recipe_id = %s', (recipe_id,))
+            cur.execute('SELECT * FROM recipes_ingredients ' \
+                'INNER JOIN ingredients ON recipes_ingredients.ingredient_id = ingredients.ingredient_id ' \
+                'WHERE recipe_id = %s;', (recipe_id,))
             
             join_table = cur.fetchall()
 
+            print(join_table)
             print(recipies_table)
             return render_template('add_recipes.html', recipes_table=recipies_table, join_table=join_table)
         
