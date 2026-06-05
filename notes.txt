@@ -12,3 +12,5 @@ recipe_id, ingredient_id, qty, | ingredient_id, name
 0           1              2        3            4
 DONE!
 
+FOR RECREATING DB:
+pg_dump --schema-only -d recipebowl > schema.sql
