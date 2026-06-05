@@ -18,6 +18,7 @@
         <input name="recipe_name" required type="text" class="input input-lg input-primary w-full text-lg font-mono"
          placeholder="ex: Grand-pappy's Rhubarb Pie"
          value="{{ recipes_table[0][1] if recipes_table else '' }}">
+         <input name="recipe_id" type="hidden" value="{{ recipes_table[0][0] if recipes_table else '' }}">
       </fieldset>
     </div>
 
@@ -31,11 +32,9 @@
 
         <div id="ingredient-col" class="flex flex-col">
           <!--DYNAMICALLY ADD EXISTING INGREDIENTS IF EDITING.-->
+         
           {% if join_table %}
-
             {% for row in join_table %}
-            <!--value=join_table[row][look at notes for index]-->
-            <!--TODO: ADD EACH ROW THE SAME AS IN JS, NEW QUERY WITH JOIN ON INGREDIENT_ID, NAME-->
               <div class="flex flex-row gap-1 items-center relative">
                 <button class="btn btn-ghost md:btn-xs align-center absolute -left-11 md:-left-6" id="removeIngredient" onclick="this.parentElement.remove()">&times;</button>
                 <input type="text" value="{{row[4]}}" required name="ingredient_name" class=" input input-lg input-accent w-full text-lg font-mono">

@@ -10,3 +10,5 @@ OK so return of the join_table query index in this order:
 
 recipe_id, ingredient_id, qty, | ingredient_id, name
 0           1              2        3            4
+DONE!
+

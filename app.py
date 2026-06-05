@@ -2,15 +2,6 @@ from flask import Flask, render_template, request, url_for, redirect
 import os
 import psycopg2
 
-
-
-#------------------------------------------------------------------------------------------------------
-'''
-TODO:
-find which index instructions is saved in and auto populate that
-find out how to go about populating the ingredients since js runs. maybe take a count of how many in each
-then run my script each time and populate after??
-'''
 #------------------------------------------------------------------------------------------------------
 app = Flask(__name__)
 
@@ -56,7 +47,7 @@ def edit():
 
             print(join_table)
             print(recipies_table)
-            return render_template('add_recipes.html', recipes_table=recipies_table, join_table=join_table)
+            return render_template('add_recipes.html', recipes_table=recipies_table, join_table=join_table, recipe_id=recipe_id)
         
         except Exception as e:
             conn.rollback()
@@ -79,58 +70,71 @@ def newrecipe():
 
         recipename = request.form.get('recipe_name')
         instructions = request.form.get('instructions')
+        hidden_id = request.form.get('recipe_id')
 
-        #TODO: RECIPE ID AS HIDDEN INPUT. SET IF AN UPDATE ELSE NONE
-        #TODO: IF HIDDEN INPUT ID EXISTS, HIT AN IF STATEMENT THAT WILL UPDATE FIELDS VS INSERT.
-        #TODO: using recipe_id is good because its unique. if i had the name or instructions as unique, and update would be "new" and double my submissions.
-         
-        try:
+        if hidden_id:
+            print(hidden_id)
+            try:
+                cur.execute('UPDATE recipes SET name = %s, instructions = %s' \
+                ' WHERE recipe_id = %s', (recipename, instructions, hidden_id))
+                conn.commit()
+                return redirect(url_for('index'))
+            
+            except Exception as e:
+                conn.rollback()
+                print(e)
+                #TODO: Add error path
 
-            cur.execute(
-                'INSERT INTO recipes (name, instructions) VALUES(%s, %s)' \
-                ' ON CONFLICT (name, instructions) DO UPDATE SET name = EXCLUDED.name,' \
-                ' instructions = EXCLUDED.instructions' \
-                ' RETURNING recipe_id;',
-                (recipename, instructions)
-            )
+            finally:
+                cur.close()
+                conn.close()
 
-            #Iterating over ingredient list.
+        else:
+            try:
 
-            recipe_id = cur.fetchone()[0]
-            ingredients = request.form.getlist('ingredient_name')
-            ing_qty = request.form.getlist('ingredient_qty')
-            print(ingredients, ing_qty)
-
-            for ingredient, qty in zip(ingredients, ing_qty):
                 cur.execute(
-                    'INSERT INTO ingredients(name)' \
-                    ' VALUES(%s)' \
-                    ' ON CONFLICT (name) DO UPDATE SET name=EXCLUDED.name ' \
-                    ' RETURNING ingredient_id;',
-                    (ingredient,)
+                    'INSERT INTO recipes (name, instructions) VALUES(%s, %s)' \
+                    ' RETURNING recipe_id;',
+                    (recipename, instructions)
                 )
 
-                ing_id = cur.fetchone()[0]
+                #Iterating over ingredient list.
+
+                recipe_id = cur.fetchone()[0]
+                ingredients = request.form.getlist('ingredient_name')
+                ing_qty = request.form.getlist('ingredient_qty')
+                print(ingredients, ing_qty)
+
+                for ingredient, qty in zip(ingredients, ing_qty):
+                    cur.execute(
+                        'INSERT INTO ingredients(name)' \
+                        ' VALUES(%s)' \
+                        ' ON CONFLICT (name) DO UPDATE SET name=EXCLUDED.name ' \
+                        ' RETURNING ingredient_id;',
+                        (ingredient,)
+                    )
+
+                    ing_id = cur.fetchone()[0]
+                    
+                    cur.execute(
+                        'INSERT INTO recipes_ingredients(recipe_id, ingredient_id, quantity)' \
+                        ' VALUES(%s,%s,%s);',
+                        (recipe_id, ing_id, qty)
+                    
+                    )
+
+                conn.commit()
+                return redirect(url_for('index'))
                 
-                cur.execute(
-                    'INSERT INTO recipes_ingredients(recipe_id, ingredient_id, quantity)' \
-                    ' VALUES(%s,%s,%s);',
-                    (recipe_id, ing_id, qty)
-                
-                )
 
-            conn.commit()
-            return redirect(url_for('index'))
-               
+            except Exception as e:
+                conn.rollback()
+                print(f"ERROR: {e}")
+                #TODO: ADD A FAILED TO SAVE ERROR PAGE TO RETURN HERE
 
-        except Exception as e:
-            conn.rollback()
-            print(f"ERROR: {e}")
-            #TODO: ADD A FAILED TO SAVE ERROR PAGE TO RETURN HERE
-
-        finally:
-            cur.close()
-            conn.close()
+            finally:
+                cur.close()
+                conn.close()
 
 
     return render_template('add_recipes.html')
