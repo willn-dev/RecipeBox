@@ -73,10 +73,38 @@ def newrecipe():
         hidden_id = request.form.get('recipe_id')
 
         if hidden_id:
-            print(hidden_id)
             try:
+                #NAME AND INSTRUCTION CHANGES
                 cur.execute('UPDATE recipes SET name = %s, instructions = %s' \
                 ' WHERE recipe_id = %s', (recipename, instructions, hidden_id))
+
+                #INGREDIENT CHANGES
+                ingredients = request.form.getlist('ingredient_name')
+                ing_qty = request.form.getlist('ingredient_qty')
+
+                cur.execute('DELETE FROM recipes_ingredients WHERE recipe_id = %s;',(hidden_id,))
+
+
+                for ingredient, qty in zip(ingredients, ing_qty):
+
+                    qty = qty if qty else 'N/A'
+
+                    cur.execute(
+                        'INSERT INTO ingredients(name)' \
+                        ' VALUES(%s)' \
+                        ' ON CONFLICT (name) DO UPDATE SET name=EXCLUDED.name ' \
+                        ' RETURNING ingredient_id;',
+                        (ingredient,)
+                    )
+
+                    ing_id = cur.fetchone()[0]
+                    
+                    cur.execute(
+                        'INSERT INTO recipes_ingredients(recipe_id, ingredient_id, quantity)' \
+                        ' VALUES(%s,%s,%s);',
+                        (hidden_id, ing_id, qty)                    
+                    )
+
                 conn.commit()
                 return redirect(url_for('index'))
             
@@ -144,3 +172,12 @@ def newrecipe():
 @app.route('/settings')
 def settings():
     return render_template('settings.html')
+
+
+@app.route('/delete')
+def delete():
+
+    
+
+
+    return redirect(url_for('edit'))
