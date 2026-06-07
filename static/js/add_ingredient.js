@@ -2,7 +2,6 @@
 
 function button_listen(){
     let button = document.querySelector('#add-new-btn');
-
     button.addEventListener('click', addIngredient);
 }
 
@@ -24,4 +23,21 @@ function addIngredient(){
     ingredientContainer.insertBefore(newRow, button);
 }
 
+
+function del_button(){
+    let button = document.querySelector('#delete');
+    button.addEventListener('click', confirm_and_submit);
+}
+
+function confirm_and_submit(){
+    let isDeleteOK = confirm('Are you sure you want to delete this? You wont be able to recover it.');
+    
+    isDeleteOK ? // finish ternary and pick up here.
+    // how would I send the form to a separate route than whats specified in the html if TRUE?
+    
+    
+    console.log("path taken");
+}
+
 document.addEventListener('DOMContentLoaded', button_listen);
+document.addEventListener('DOMContentLoaded', del_button);
