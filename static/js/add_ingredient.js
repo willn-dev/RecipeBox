@@ -29,12 +29,35 @@ function del_button(){
     button.addEventListener('click', confirm_and_submit);
 }
 
-function confirm_and_submit(){
+async function confirm_and_submit(){
     let isDeleteOK = confirm('Are you sure you want to delete this? You wont be able to recover it.');
     
-    isDeleteOK ? // finish ternary and pick up here.
-    // how would I send the form to a separate route than whats specified in the html if TRUE?
+    if(isDeleteOK){
+        var recipe_id = document.querySelector('#recipe_id').value;
+        if(!recipe_id) return;
+        await fetch("/delete", {
+            method: 'POST',
+            body: JSON.stringify({
+                id: recipe_id
+            }),
+            headers:{
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        }    
+
+        let response = response.json()
+
+        );
+
+        // how to read body of a fetch response??
+        //Set flask up to execute the delete portion and return a response, string of "DELETE" or "FAILED"
+        //read response and decide how to redirect or reply to both cases. 
+
+    }
     
+    else{
+
+    }
     
     console.log("path taken");
 }

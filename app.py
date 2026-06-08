@@ -177,10 +177,23 @@ def settings():
 @app.route('/delete')
 def delete():
 
+    del_rqst = request.get_json()
+    recipe_id = del_rqst.id
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    if recipe_id:
+        try:
+            cur.execute('')
+        except Exception as e:
+            print(e)
+            pass
+            #TODO: ERROR SPECIFIC RETURN
+
     #TODO: ON DELETE CASCADE IS SET FOR RECIPE_ID.
     '''DELETE FROM TABLE RECIPE. FIND WITH THE HIDDEN ID, PASS THIS TO THIS ROUTE, 
     AND CREATE A DELETE FROM QUERY TO REMOVE THE RECIPE WITH A TRY AND EXCEPT CATCH ON IT
     HOPEFULLY IM AWAKE ENOUGH TO DO THIS IN THE MORNING'''
 
-
-    return redirect(url_for('edit'))
+    return "DELETED"
