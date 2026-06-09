@@ -46,6 +46,8 @@ async function confirm_and_submit(){
         });
         let final_reply = await response.json();
         console.log(final_reply.redirect, final_reply.status)
+
+        window.location = final_reply.redirect
     }
     else{
 
