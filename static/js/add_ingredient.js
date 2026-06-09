@@ -35,7 +35,7 @@ async function confirm_and_submit(){
     if(isDeleteOK){
         var recipe_id = document.querySelector('#recipe_id').value;
         if(!recipe_id) return;
-        await fetch("/delete", {
+        let response = await fetch("/delete", {
             method: 'POST',
             body: JSON.stringify({
                 id: recipe_id
@@ -43,18 +43,10 @@ async function confirm_and_submit(){
             headers:{
                 "Content-type": "application/json; charset=UTF-8"
             }
-        }    
-
-        let response = response.json()
-
-        );
-
-        // how to read body of a fetch response??
-        //Set flask up to execute the delete portion and return a response, string of "DELETE" or "FAILED"
-        //read response and decide how to redirect or reply to both cases. 
-
+        });
+        let final_reply = await response.json();
+        console.log(final_reply.redirect, final_reply.status)
     }
-    
     else{
 
     }

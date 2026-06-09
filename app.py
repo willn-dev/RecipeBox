@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, jsonify
 import os
 import psycopg2
 
@@ -174,26 +174,38 @@ def settings():
     return render_template('settings.html')
 
 
-@app.route('/delete')
+@app.route('/delete', methods=['POST'])
 def delete():
 
     del_rqst = request.get_json()
-    recipe_id = del_rqst.id
+    recipe_id = del_rqst.get('id')
 
     conn = get_db_connection()
     cur = conn.cursor()
 
     if recipe_id:
+
+
         try:
-            cur.execute('')
+            cur.execute('DELETE FROM recipes WHERE recipe_id = %s',(recipe_id,))
+            conn.commit()
+
+            success_return = {'status': 'DELETED', 'redirect': '/edit'}
+            return jsonify(success_return)
+
+
         except Exception as e:
             print(e)
-            pass
-            #TODO: ERROR SPECIFIC RETURN
+            conn.rollback()
+            error_return = {'status': 'FAIL', 'redirect': '/error'}
 
-    #TODO: ON DELETE CASCADE IS SET FOR RECIPE_ID.
-    '''DELETE FROM TABLE RECIPE. FIND WITH THE HIDDEN ID, PASS THIS TO THIS ROUTE, 
-    AND CREATE A DELETE FROM QUERY TO REMOVE THE RECIPE WITH A TRY AND EXCEPT CATCH ON IT
-    HOPEFULLY IM AWAKE ENOUGH TO DO THIS IN THE MORNING'''
+        finally:
+            cur.close()
+            conn.close()
 
-    return "DELETED"
+@app.route('/error')
+def error():
+    #temp placeholder. real custom errors with flasks built in
+    #app.errorhandler(404)
+    #def page_not_found()
+    pass
