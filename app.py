@@ -203,9 +203,26 @@ def delete():
             cur.close()
             conn.close()
 
+
+#TODO:
 @app.route('/error')
 def error():
     #temp placeholder. real custom errors with flasks built in
     #app.errorhandler(404)
     #def page_not_found()
     pass
+
+
+#------------------------------------------------------------------------------------------------------
+'''
+Next I need to handle the error routes accordingly.
+let it handle the entire sites error exceptions.
+
+Next make page for query random mealplan based on a slider with numbers of meals.?
+then figure out how to compose said page, tack on a print that has full ingredient aggregation.
+
+Then focus on styling.
+
+
+'''
+#------------------------------------------------------------------------------------------------------
