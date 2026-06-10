@@ -210,7 +210,7 @@ def delete():
 def error(message):
     match message:
         case 'delete':
-            pass
+            return render_template('error_delete.html')
         case 'save':
             pass
         case 'add':
@@ -218,6 +218,18 @@ def error(message):
         case _:
             pass
             # howd you get here html
+
+
+@app.route('/plan')
+def plan():
+    '''query db then pass to jinja, js can control how many appear
+    based on the result of hideable hero with slider. 
+    
+    display in list possibly with refresh button on ones you dont like? 
+    then confirm, and sends to a route that downloads a pdf of the plan.'''
+
+    
+
 
 
 
