@@ -111,7 +111,7 @@ def newrecipe():
             except Exception as e:
                 conn.rollback()
                 print(e)
-                #TODO: Add error path
+                return redirect('error/add')
 
             finally:
                 cur.close()
@@ -158,7 +158,7 @@ def newrecipe():
             except Exception as e:
                 conn.rollback()
                 print(f"ERROR: {e}")
-                #TODO: ADD A FAILED TO SAVE ERROR PAGE TO RETURN HERE
+                return redirect('/error/save')
 
             finally:
                 cur.close()
@@ -212,6 +212,8 @@ def error(message):
         case 'delete':
             pass
         case 'save':
+            pass
+        case 'add':
             pass
         case _:
             pass

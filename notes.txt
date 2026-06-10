@@ -16,8 +16,7 @@ FOR RECREATING DB:
 pg_dump --schema-only -d recipebowl > schema.sql
 
 
-DELETING
+TODOS:
 
-I want a confirm window. 
-im going to use JS confirm() function, and if return true I will use this:
-document.getElementById("myForm").requestSubmit();
+Change delete icon maybe change by theme if I do it as a button with an icon on it maybe?
+Need a home button in top left of all pages but index
