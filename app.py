@@ -197,7 +197,8 @@ def delete():
         except Exception as e:
             print(e)
             conn.rollback()
-            error_return = {'status': 'FAIL', 'redirect': '/error'}
+            error_return = {'status': 'FAIL', 'redirect': '/error/delete', }
+            return jsonify(error_return)
 
         finally:
             cur.close()
@@ -205,24 +206,27 @@ def delete():
 
 
 #TODO:
-@app.route('/error')
-def error():
-    #temp placeholder. real custom errors with flasks built in
-    #app.errorhandler(404)
-    #def page_not_found()
-    pass
+@app.route('/error/<message>')
+def error(message):
+    match message:
+        case 'delete':
+            pass
+        case 'save':
+            pass
+        case _:
+            pass
+            # howd you get here html
+
 
 
 #------------------------------------------------------------------------------------------------------
 '''
-Next I need to handle the error routes accordingly.
-let it handle the entire sites error exceptions.
+
+custom error pages for 404 or 500 with app.errorhandler(404) decorator etc
 
 Next make page for query random mealplan based on a slider with numbers of meals.?
 then figure out how to compose said page, tack on a print that has full ingredient aggregation.
 
 Then focus on styling.
-
-
 '''
 #------------------------------------------------------------------------------------------------------

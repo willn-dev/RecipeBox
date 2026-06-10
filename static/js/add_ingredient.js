@@ -47,13 +47,8 @@ async function confirm_and_submit(){
         let final_reply = await response.json();
         console.log(final_reply.redirect, final_reply.status)
 
-        window.location = final_reply.redirect
+            window.location = final_reply.redirect
     }
-    else{
-
-    }
-    
-    console.log("path taken");
 }
 
 document.addEventListener('DOMContentLoaded', button_listen);
