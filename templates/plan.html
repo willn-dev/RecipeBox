@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<!-- PLAN
+    HERO with slider that gets hidden upon button click. maybe animate on hide, a fade out?
+    then up to 200 recipes are loaded up front by a flask db query and passed here. 
+
+    JS can handle initial population by checking the slider value and then using that to populate however many
+    in a daisy list element. Then when I click the re roll button on the side. JS can select next from pool
+    that is not already selected.
+
+    for slider, range has a .value property i can target in JS
+
+    i need to configure prettier for py js and html
+
+    add flex column to this!
+
+--> 
+
+<div id="hero-fullheight" class="overflow-hidden">
+    <div class="hero min-h-screen bg-base-200">
+      <div class="hero-content text-center">
+        <div class="max-w-md">
+          <h1 class="text-5xl font-bold mb-7">How many days would you like to plan?</h1>
+            
+            <div class="w-full max-w-xs mx-auto">
+                <input type="range" min="1" max="7" value="5" class="range" step="1" />
+                <div class="flex justify-between px-2.5 mt-2 text-xs">
+                    <span>1</span>
+                    <span>2</span>
+                    <span>3</span>
+                    <span>4</span>
+                    <span>5</span>
+                    <span>6</span>
+                    <span>7</span>
+                </div>
+            </div>
+          <button class="btn btn-primary mt-7">Go!</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+
+{% endblock content %}

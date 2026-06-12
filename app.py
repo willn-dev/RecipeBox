@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect, jsonify
+from flask import Flask, render_template, request, url_for, redirect, jsonify, session
 import os
 import psycopg2
 
@@ -172,7 +172,8 @@ def newrecipe():
 @app.route('/settings')
 def settings():
     return render_template('settings.html')
-
+'''remove settings as a route, change it to a theme dropdown icon in the corner.
+use js to extract the text value that the theme button uses. then take that and set it to persist on change using flask session'''
 
 @app.route('/delete', methods=['POST'])
 def delete():
@@ -220,13 +221,20 @@ def error(message):
             # howd you get here html
 
 
-@app.route('/plan')
+@app.route('/plan', methods = ['GET', 'POST'])
 def plan():
     '''query db then pass to jinja, js can control how many appear
     based on the result of hideable hero with slider. 
     
     display in list possibly with refresh button on ones you dont like? 
     then confirm, and sends to a route that downloads a pdf of the plan.'''
+    
+    
+    if request.method == 'GET':
+        return render_template('plan.html')
+
+
+
 
     
 
