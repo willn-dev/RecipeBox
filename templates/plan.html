@@ -18,26 +18,25 @@
 
 --> 
 
-<div id="hero-fullheight" class="overflow-hidden">
+<div id="hero-fullheight" class="overflow-hidden ">
     <div class="hero min-h-screen bg-base-200">
-      <div class="hero-content text-center">
-        <div class="max-w-md">
-          <h1 class="text-5xl font-bold mb-7">How many days would you like to plan?</h1>
+      <div class="hero-content text-center gap-y-25 max-w-md md:max-w-3/4 flex-col">
+        
+        <h1 class="text-5xl md:text-7xl font-bold">How many days would you like to plan?</h1>
             
-            <div class="w-full max-w-xs mx-auto">
-                <input type="range" min="1" max="7" value="5" class="range" step="1" />
-                <div class="flex justify-between px-2.5 mt-2 text-xs">
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                </div>
+        <div class="w-full mx-auto">
+            <input type="range" min="1" max="7" value="5" class="range w-full" step="1" />
+            <div class="flex justify-between px-2.5 mt-2 text-xs">
+                <span>1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
             </div>
-          <button class="btn btn-primary mt-7">Go!</button>
         </div>
+        <button class="btn btn-primary">Go!</button>
       </div>
     </div>
 </div>
