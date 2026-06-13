@@ -1414,8 +1414,8 @@
   .gap-5 {
     gap: calc(var(--spacing) * 5);
   }
-  .gap-y-25 {
-    row-gap: calc(var(--spacing) * 25);
+  .gap-y-27 {
+    row-gap: calc(var(--spacing) * 27);
   }
   .self-center {
     align-self: center;
