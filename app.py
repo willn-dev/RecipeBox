@@ -229,8 +229,26 @@ def plan():
     display in list possibly with refresh button on ones you dont like? 
     then confirm, and sends to a route that downloads a pdf of the plan.'''
     
+    conn = get_db_connection()
+    cur = conn.cursor()
+
     
     if request.method == 'GET':
+        try:
+            cur.execute('SELECT name, recipe_id FROM recipes ORDER BY RANDOM() ' \
+            'LIMIT 200;')
+            rand_pool = cur.fetchall()
+
+
+        
+
+        except Exception as e:
+            pass
+
+        finally:
+            conn.close()
+            cur.close()
+
         return render_template('plan.html')
 
 
