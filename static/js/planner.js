@@ -10,4 +10,11 @@ function hide_hero(){
     hero.style.display = 'none';
 }
 
+function populate_recipe(){
+
+}
+
+
+
 document.addEventListener('DOMContentLoaded', hide_btn);
+document.addEventListener('DOMContentLoaded', populate_recipe);

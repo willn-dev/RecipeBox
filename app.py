@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, url_for, redirect, jsonify, session
 import os
 import psycopg2
+import datetime
 
 #------------------------------------------------------------------------------------------------------
 app = Flask(__name__)
@@ -216,6 +217,10 @@ def error(message):
             pass
         case 'add':
             pass
+
+        case 'loaderror':
+            pass
+
         case _:
             pass
             # howd you get here html
@@ -234,22 +239,32 @@ def plan():
 
     
     if request.method == 'GET':
+
         try:
             cur.execute('SELECT name, recipe_id FROM recipes ORDER BY RANDOM() ' \
             'LIMIT 200;')
             rand_pool = cur.fetchall()
+            print(rand_pool)
 
+            if rand_pool:
 
-        
+                current_time = datetime.datetime.now()
+                formatted_time = current_time.strftime("%I:%M%p on %m-%d-%Y")
+                print(formatted_time)
 
+                return render_template('plan.html', rand_pool = rand_pool, dt = formatted_time)
+            
+            #error
+            else:
+                return redirect(url_for('error/loaderror'))
+            
         except Exception as e:
-            pass
+            print(e)
+            return redirect('error/loaderror')
 
         finally:
             conn.close()
             cur.close()
-
-        return render_template('plan.html')
 
 
 
