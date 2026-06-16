@@ -21,7 +21,7 @@
           <input name="recipe_name" required type="text" class="input input-lg input-primary w-full text-lg font-mono md:text-center"
           placeholder="ex: Grand-pappy's Rhubarb Pie"
           value="{{ recipes_table[0][1] if recipes_table else '' }}">
-          <input id="recipe_id" type="hidden" value="{{ recipes_table[0][0] if recipes_table else '' }}">
+          <input name="recipe_id" id="recipe_id" type="hidden" value="{{ recipes_table[0][0] if recipes_table else '' }}">
         </fieldset>
       </div>
 

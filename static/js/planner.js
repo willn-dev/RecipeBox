@@ -19,7 +19,7 @@ function populate_plan(days){
     let listholder = document.getElementById('listHolder');
     var recipes_loaded = [];
 
-    for(let i = 0; i < days - 1; i++){
+    for(let i = 0; i < days; i++){
         recipe = document.createElement('li');
         recipe.classList.add('list-row');
 
