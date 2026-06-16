@@ -1,8 +1,10 @@
-
-
 function hide_btn(){
     let button = document.getElementById('hide_btn');
     button.addEventListener('click', hide_hero);
+
+    let listholder = document.getElementById('listHolder');
+    listholder.addEventListener('click', reroller); // this is to allow items to be reloaded later
+
 }
 
 function hide_hero(){
@@ -37,6 +39,18 @@ function populate_plan(days){
 
     }
 }
-//solve when refresh selects new from pool.
+
+function reroller(evt){
+    let button = evt.target.closest('button');
+
+    if (button){
+        let btn_id = button.id;
+        let row = button.closest('li');
+        let name_div = row.querySelector('#name');
+        console.log(btn_id, name_div);
+
+
+    }
+}
 
 document.addEventListener('DOMContentLoaded', hide_btn);
