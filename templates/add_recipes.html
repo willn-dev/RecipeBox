@@ -2,8 +2,15 @@
 
 {% block content %}
 
+<div class="text-lg breadcrumbs mx-10">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="">Add Recipe</a></li>
+  </ul>
+</div>
+
 <header> 
-  <h1 class=" mt-8 mb-8 text-6xl font-mono text-center">{{ 'Edit' if recipes_table else 'Add a New Recipe'}}</h1>
+  <h1 class=" mt-5 mb-8 text-5xl md:text-7xl font-bold text-center">{{ 'Edit' if recipes_table else 'Add a New Recipe'}}</h1>
 </header>
 
 <div class="divider divider-primary w-10/12 mx-auto mt-8"></div>

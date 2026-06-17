@@ -57,15 +57,16 @@ function reroller(evt){
                 name_div.innerHTML = `${toAdd[0]}`;
                 recipes_loaded.push(toAdd[1]);
         }
-
         else{
 
             button.id = null;
             name_div.innerHTML = `Theres no more recipes to add!!`;
-
-
         }
     }
 }
 
 document.addEventListener('DOMContentLoaded', hide_btn);
+
+//REROLL IS WORKING. NEED TO STYLE THE RECIPE NAME DISPLAY BETTER THEN ADD HOME BUTTON IN lEFT CORNER
+//FOR ALL PAGES EXCEPT INDEX. THEN NEED TO ADD THEME CHANGER AND SAVE WITH SESSION
+//THEN NEED TO SORT OUT PRINTING 
