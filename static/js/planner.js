@@ -16,10 +16,11 @@ function hide_hero(){
     populate_plan(days_needed);
 }
 
+var recipes_loaded = [];
+
 function populate_plan(days){
     console.log(recipe_pool[1]);
     let listholder = document.getElementById('listHolder');
-    var recipes_loaded = [];
 
     for(let i = 0; i < days; i++){
         recipe = document.createElement('li');
@@ -47,9 +48,23 @@ function reroller(evt){
         let btn_id = button.id;
         let row = button.closest('li');
         let name_div = row.querySelector('#name');
-        console.log(btn_id, name_div);
+        console.log(btn_id, name_div); //remove after tests
+
+        toAdd = recipe_pool.find(recipe_pair => !recipes_loaded.includes(recipe_pair[1]));
+
+        if (toAdd){
+            button.id = toAdd[1];
+                name_div.innerHTML = `${toAdd[0]}`;
+                recipes_loaded.push(toAdd[1]);
+        }
+
+        else{
+
+            button.id = null;
+            name_div.innerHTML = `Theres no more recipes to add!!`;
 
 
+        }
     }
 }
 
