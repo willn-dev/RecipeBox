@@ -265,7 +265,11 @@ def plan():
         finally:
             conn.close()
             cur.close()
+    
 
+    #-------POST ROUTE FOR PLAN--------------------------------------------------------------------------------------
+    if request.method == 'POST':
+        pass
 
 
 
@@ -276,11 +280,10 @@ def plan():
 
 #------------------------------------------------------------------------------------------------------
 '''
-
+NOTES:
 custom error pages for 404 or 500 with app.errorhandler(404) decorator etc
 
-Next make page for query random mealplan based on a slider with numbers of meals.?
-then figure out how to compose said page, tack on a print that has full ingredient aggregation.
+6-18-26 consult obsidian notes for more. 
 
 Then focus on styling.
 '''

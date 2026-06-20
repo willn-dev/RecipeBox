@@ -17,6 +17,7 @@ function hide_hero(){
 }
 
 var recipes_loaded = [];
+var recipes_excluded = [];
 
 function populate_plan(days){
     console.log(recipe_pool[1]);
@@ -45,17 +46,20 @@ function reroller(evt){
     let button = evt.target.closest('button');
 
     if (button){
-        let btn_id = button.id;
+        let btn_id = Number(button.id);
         let row = button.closest('li');
         let name_div = row.querySelector('#name');
-        console.log(btn_id, name_div); //remove after tests
 
-        toAdd = recipe_pool.find(recipe_pair => !recipes_loaded.includes(recipe_pair[1]));
+        toAdd = recipe_pool.find(recipe_pair => !recipes_loaded.includes(recipe_pair[1]) && !recipes_excluded.includes(recipe_pair[1])); //recipe_pair is name given to each element in recipe_pool as it iterates.
 
         if (toAdd){
+            recipes_excluded.push(btn_id);
+            recipes_loaded = recipes_loaded.filter(num => num !== btn_id);
             button.id = toAdd[1];
                 name_div.innerHTML = `${toAdd[0]}`;
                 recipes_loaded.push(toAdd[1]);
+               
+                console.log(recipes_loaded);
         }
         else{
 
