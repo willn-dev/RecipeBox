@@ -56,7 +56,14 @@
             <ul id="listHolder" class="list bg-base-200 w-1/2 border-accent rounded-box shadow-md">
                 <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Your meal plan, generated at: {{ dt if dt else 'unknowndate'}}</li>   
             </ul>
+
+
+            <form id="plan-form" action="/plan" method="post">
+                <input name="plan-array" type="hidden" id="js-pass-array">
+                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+            </form>
         </div>
+
     {% endif %}   
 
 

@@ -58,7 +58,6 @@ function reroller(evt){
             button.id = toAdd[1];
                 name_div.innerHTML = `${toAdd[0]}`;
                 recipes_loaded.push(toAdd[1]);
-               
                 console.log(recipes_loaded);
         }
         else{
@@ -69,7 +68,19 @@ function reroller(evt){
     }
 }
 
+
+function passArray(){
+    let form = document.getElementById('plan-form');
+    form.addEventListener('submit', passInputToHidden);
+
+    function passInputToHidden(){
+      let hiddenInput = document.getElementById('js-pass-array');
+      hiddenInput.value = `${JSON.stringify(recipes_loaded)}`
+    }
+}
+
 document.addEventListener('DOMContentLoaded', hide_btn);
+document.addEventListener('DOMContentLoaded', passArray)
 
 //REROLL IS WORKING. NEED TO STYLE THE RECIPE NAME DISPLAY BETTER THEN ADD HOME BUTTON IN lEFT CORNER
 //FOR ALL PAGES EXCEPT INDEX. THEN NEED TO ADD THEME CHANGER AND SAVE WITH SESSION

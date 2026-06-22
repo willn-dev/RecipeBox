@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, url_for, redirect, jsonify, s
 import os
 import psycopg2
 import datetime
+import json
 
 #------------------------------------------------------------------------------------------------------
 app = Flask(__name__)
@@ -269,15 +270,10 @@ def plan():
 
     #-------POST ROUTE FOR PLAN--------------------------------------------------------------------------------------
     if request.method == 'POST':
-        pass
+        plan = json.loads(request.form.get('plan-array'))
+        print(plan)
 
-
-
-    
-
-
-
-
+        return render_template('menu.html', plan = plan)
 #------------------------------------------------------------------------------------------------------
 '''
 NOTES:
