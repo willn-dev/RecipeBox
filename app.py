@@ -228,13 +228,7 @@ def error(message):
 
 
 @app.route('/plan', methods = ['GET', 'POST'])
-def plan():
-    '''query db then pass to jinja, js can control how many appear
-    based on the result of hideable hero with slider. 
-    
-    display in list possibly with refresh button on ones you dont like? 
-    then confirm, and sends to a route that downloads a pdf of the plan.'''
-    
+def plan():    
     conn = get_db_connection()
     cur = conn.cursor()
 
@@ -271,15 +265,38 @@ def plan():
     #-------POST ROUTE FOR PLAN--------------------------------------------------------------------------------------
     if request.method == 'POST':
         plan = json.loads(request.form.get('plan-array'))
-        print(plan)
+
+
+        cur.execute('SELECT * FROM recipes WHERE recipe_id IN %s', (tuple(plan),))
+        return_result = cur.fetchall()
+
+        recipe_table = {}
+
+        for id, name, instructions in return_result:
+            recipe_table[id] = {'name':name, 'instructions':instructions, 'ingredients': [], }
+
+
+        cur.execute('SELECT recipe_id, ingredients.name, recipes_ingredients.ingredient_id, quantity FROM recipes_ingredients ' \
+        'INNER JOIN ingredients ON recipes_ingredients.ingredient_id = ingredients.ingredient_id ' \
+        'WHERE recipe_id IN %s', (tuple(plan),))
+       
+        ing_return = cur.fetchall()
+
+        '''loop thru the recipe_table and add ingredients based on the id, to the [ingredients] key
+        whos value is a list of dicts.  in the loop create a dict, and then add it to ingredients list.'''
+
+        print(ing_return)
+        # change this query to a join so that the ingredient name is present to pull from
 
         return render_template('menu.html', plan = plan)
+
+
+        # I want to get the recipes in one query, then organize them into a dict keyed by id
+
 #------------------------------------------------------------------------------------------------------
 '''
 NOTES:
 custom error pages for 404 or 500 with app.errorhandler(404) decorator etc
-
-6-18-26 consult obsidian notes for more. 
 
 Then focus on styling.
 '''
