@@ -282,17 +282,17 @@ def plan():
        
         ing_return = cur.fetchall()
 
-        '''loop thru the recipe_table and add ingredients based on the id, to the [ingredients] key
-        whos value is a list of dicts.  in the loop create a dict, and then add it to ingredients list.'''
+        for rec_id, ing_name, _, qty in ing_return:
+
+            formatted_ing = f'{ing_name} - {str(qty)}'
+            recipe_table[rec_id]['ingredients'].append(formatted_ing)
+
+
+
+
 
         print(ing_return)
-        # change this query to a join so that the ingredient name is present to pull from
-
         return render_template('menu.html', plan = plan)
-
-
-        # I want to get the recipes in one query, then organize them into a dict keyed by id
-
 #------------------------------------------------------------------------------------------------------
 '''
 NOTES:
