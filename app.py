@@ -289,10 +289,8 @@ def plan():
 
 
 
-
-
         print(ing_return)
-        return render_template('menu.html', plan = plan)
+        return render_template('menu.html', recipe_table=recipe_table)
 #------------------------------------------------------------------------------------------------------
 '''
 NOTES:
