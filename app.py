@@ -271,6 +271,9 @@ def plan():
         return_result = cur.fetchall()
 
         recipe_table = {}
+        combined_ingredients = {}
+
+        #create recipe table
 
         for id, name, instructions in return_result:
             recipe_table[id] = {'name':name, 'instructions':instructions, 'ingredients': [], }
@@ -282,15 +285,18 @@ def plan():
        
         ing_return = cur.fetchall()
 
-        for rec_id, ing_name, _, qty in ing_return:
+        for rec_id, ing_name, ing_id, qty in ing_return:
 
             formatted_ing = f'{ing_name} - {str(qty)}'
             recipe_table[rec_id]['ingredients'].append(formatted_ing)
-
-
+            
+            if ing_id in combined_ingredients:
+                combined_ingredients[ing_id]['qty'] += qty
+            else:
+                combined_ingredients[ing_id] = {'name': ing_name, 'qty':qty}
 
         print(ing_return)
-        return render_template('menu.html', recipe_table=recipe_table)
+        return render_template('menu.html', recipe_table=recipe_table, combined_ingredients=combined_ingredients)
 #------------------------------------------------------------------------------------------------------
 '''
 NOTES:

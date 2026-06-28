@@ -2,13 +2,31 @@
 
 {% block content %}
 
-<style>
-    @page {
-        size: 8.5in, 11in;
-        margin: 1in;
-    }
-</style>
 
+    <style>
+
+        @page {
+            size: 8.5in, 11in;
+            margin: 1in;
+        }
+
+
+        @media print{
+
+            .pg-break {
+                break-after: page;
+            }
+
+            *{
+                background-color: white;
+                color: black;
+            }
+        }
+
+    </style>
+
+
+<!--MENU-->
 <div class="flex flex-col justify-center">
     <div class="mt-5 text-center">
         <h1 class="font-bold text-7xl">Menu</h1>
@@ -16,9 +34,27 @@
     <div class="divider divider-primary w-10/12 mx-auto mt-8"></div>
     
     {%  if recipe_table  %}
-        <div id="recipe-names" class="flex flex-col gap-2 justify-center text-center font-bold text-4xl">
+        <div id="recipe-names" class="flex flex-col gap-12 mt-10 justify-center text-center font-bold text-4xl">
             {% for item in recipe_table %}
                 <h2>{{ recipe_table[item]['name']}}</h2>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+<div class="pg-break"></div>
+
+<div class="flex flex-col justify-center">
+    <div class="mt-5 text-center">
+        <h1 class="font-bold text-7xl">Shopping</h1>
+    </div>
+
+    <div class="divider divider-primary w-10/12 mx-auto mt-8"></div>
+
+    {% if combined_ingredients %}
+        <div class="flex flex-col gap-12 mt-10 justify-center text-center font-bold text-2xl">
+            {% for id in combined_ingredients %}
+                <h2>{{ combined_ingredients[id]['name'] }} - {{combined_ingredients[id]['qty']}} </h2>
             {% endfor %}
         </div>
     {% endif %}

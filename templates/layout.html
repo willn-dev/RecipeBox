@@ -14,7 +14,11 @@ in flask.-->
         {% endif %}
         
     </title>
+
+    {% block styles %}
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/output.css') }}">
+    {% endblock styles %}
+
 </head>
 
 <body>
