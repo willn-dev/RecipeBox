@@ -52,15 +52,16 @@
     <div class="divider divider-primary w-10/12 mx-auto mt-8"></div>
 
     {% if combined_ingredients %}
-        <div class="flex flex-col gap-12 mt-10 justify-center text-center font-bold text-2xl">
+        <div class="grid grid-cols-3 gap-y-10 justify-center text-center font-bold text-2xl">
             {% for id in combined_ingredients %}
-
-                <h2>{{ combined_ingredients[id]['name'] }}</h2>
-
-                {% for item in combined_ingredients[id]['qty'] %}
-                    <p>{{item}}</p>
-                {% endfor %}
-
+                <div>
+                    <h2>{{ combined_ingredients[id]['name'] }}</h2>
+                    <div class="flex flex-row flex-wrap justify-center">
+                        {% for item in combined_ingredients[id]['qty'] %}
+                            <p>{{item}}{% if not loop.last %},&nbsp;{% endif %}</p>
+                        {% endfor %}
+                    </div>
+                </div>
             {% endfor %}
         </div>
     {% endif %}

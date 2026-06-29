@@ -303,6 +303,10 @@ NOTES:
 main todo:
 
 Need to re style ingredients. 
+I could use space much more efficiently. I need to decide what my proper layout is. 
+i dont think one long column is a correct solution whatsoever.
+
+
 check list for wether or not user would like shopping list 
 and or recipes for each item on menu.
 
