@@ -291,17 +291,23 @@ def plan():
             recipe_table[rec_id]['ingredients'].append(formatted_ing)
             
             if ing_id in combined_ingredients:
-                combined_ingredients[ing_id]['qty'] += qty
+                combined_ingredients[ing_id]['qty'].append(qty)
             else:
-                combined_ingredients[ing_id] = {'name': ing_name, 'qty':qty}
+                combined_ingredients[ing_id] = {'name': ing_name, 'qty':[qty]}
 
         print(ing_return)
         return render_template('menu.html', recipe_table=recipe_table, combined_ingredients=combined_ingredients)
 #------------------------------------------------------------------------------------------------------
 '''
 NOTES:
-custom error pages for 404 or 500 with app.errorhandler(404) decorator etc
+main todo:
 
+Need to re style ingredients. 
+check list for wether or not user would like shopping list 
+and or recipes for each item on menu.
+
+
+custom error pages for 404 or 500 with app.errorhandler(404) decorator etc
 Then focus on styling.
 '''
 #------------------------------------------------------------------------------------------------------

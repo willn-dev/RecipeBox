@@ -54,10 +54,15 @@
     {% if combined_ingredients %}
         <div class="flex flex-col gap-12 mt-10 justify-center text-center font-bold text-2xl">
             {% for id in combined_ingredients %}
-                <h2>{{ combined_ingredients[id]['name'] }} - {{combined_ingredients[id]['qty']}} </h2>
+
+                <h2>{{ combined_ingredients[id]['name'] }}</h2>
+
+                {% for item in combined_ingredients[id]['qty'] %}
+                    <p>{{item}}</p>
+                {% endfor %}
+
             {% endfor %}
         </div>
     {% endif %}
-
 </div>
 {% endblock content %}
