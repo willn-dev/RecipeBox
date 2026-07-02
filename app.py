@@ -265,14 +265,14 @@ def plan():
     #-------POST ROUTE FOR PLAN--------------------------------------------------------------------------------------
     if request.method == 'POST':
         plan = json.loads(request.form.get('plan-array'))
-
+        instructions_id = json.loads(request.form.get('checkbox_value'))
 
         cur.execute('SELECT * FROM recipes WHERE recipe_id IN %s', (tuple(plan),))
         return_result = cur.fetchall()
 
         recipe_table = {}
         combined_ingredients = {}
-
+        
         #create recipe table
 
         for id, name, instructions in return_result:
@@ -296,22 +296,17 @@ def plan():
                 combined_ingredients[ing_id] = {'name': ing_name, 'qty':[qty]}
 
         print(ing_return)
-        return render_template('menu.html', recipe_table=recipe_table, combined_ingredients=combined_ingredients)
+        return render_template('menu.html', recipe_table=recipe_table, combined_ingredients=combined_ingredients, instructions_id=instructions_id)
 #------------------------------------------------------------------------------------------------------
 '''
 NOTES:
 main todo:
 
-Need to re style ingredients. 
-I could use space much more efficiently. I need to decide what my proper layout is. 
-i dont think one long column is a correct solution whatsoever.
-
-
-check list for wether or not user would like shopping list 
-and or recipes for each item on menu.
-
-
 custom error pages for 404 or 500 with app.errorhandler(404) decorator etc
 Then focus on styling.
+
+settings dropdown to change the theme then saves via flask sessions.
+
+bundle to docker.
 '''
 #------------------------------------------------------------------------------------------------------

@@ -44,19 +44,20 @@
 
 <div class="pg-break"></div>
 
+<!--Shopping List-->
 <div class="flex flex-col justify-center">
     <div class="mt-5 text-center">
-        <h1 class="font-bold text-7xl">Shopping</h1>
+        <h1 class="font-bold text-5xl">Shopping</h1>
     </div>
 
     <div class="divider divider-primary w-10/12 mx-auto mt-8"></div>
 
     {% if combined_ingredients %}
-        <div class="grid grid-cols-3 gap-y-10 justify-center text-center font-bold text-2xl">
+        <div class="grid grid-cols-2 gap-y-10 justify-center text-center font-bold">
             {% for id in combined_ingredients %}
                 <div>
                     <h2>{{ combined_ingredients[id]['name'] }}</h2>
-                    <div class="flex flex-row flex-wrap justify-center">
+                    <div class="flex flex-row flex-wrap justify-center font-light">
                         {% for item in combined_ingredients[id]['qty'] %}
                             <p>{{item}}{% if not loop.last %},&nbsp;{% endif %}</p>
                         {% endfor %}
@@ -66,4 +67,44 @@
         </div>
     {% endif %}
 </div>
+
+<div class="pg-break"></div>
+<!--Recipe Pages-->
+{% if instructions_id %}
+    {% for item in recipe_table %}
+        {% if item in instructions_id %}
+            <div class="flex flex-col justify-center">
+                
+                <div class="mt-5 text-center">
+                    <h1 class="font-bold text-5xl">{{recipe_table[item]['name']}}</h1>
+                </div>
+
+                <div class="divider divider-primary w-10/12 mx-auto mt-8"></div>
+
+                <div class="grid grid-cols-3"> 
+                    <div id="ingredients" class="flex flex-col justify-center">
+
+                            <h4>Ingredients<br></h4>
+                            <ul>
+                                {% for ingredient in recipe_table[item]['ingredients'] %}
+                                    <li>{{ingredient}}</li>
+                                {% endfor %}
+                            </ul>
+                    </div>
+
+                    <div id="instructions" class="col-span-2 flex flex-col justify-center mt-7">
+
+                        <p>{{recipe_table[item]['instructions']}}</p>
+
+                    </div>
+                    
+
+                </div>
+            </div>
+            <div class="pg-break"></div>
+
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
 {% endblock content %}
