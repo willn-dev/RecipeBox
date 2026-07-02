@@ -5,6 +5,11 @@
 
     <style>
 
+        .content-main-hide{
+            visibility: hidden;
+        }
+
+
         @page {
             size: 8.5in, 11in;
             margin: 1in;
@@ -20,87 +25,91 @@
             *{
                 background-color: white;
                 color: black;
+                visibility: visible;
             }
+
         }
 
     </style>
 
-
-<!--MENU-->
-<div class="flex flex-col justify-center">
-    <div class="mt-5 text-center">
-        <h1 class="font-bold text-7xl">Menu</h1>
-    </div>
-    <div class="divider divider-primary w-11/12 mx-auto mt-8"></div>
-    
-    {%  if recipe_table  %}
-        <div id="recipe-names" class="flex flex-col gap-12 mt-10 justify-center text-center font-bold text-4xl">
-            {% for item in recipe_table %}
-                <h2>{{ recipe_table[item]['name']}}</h2>
-            {% endfor %}
+<div class="content-main-hide">
+    <!--MENU-->
+    <div class="flex flex-col justify-center">
+        <div class="mt-5 text-center">
+            <h1 class="font-bold text-7xl">Menu</h1>
         </div>
-    {% endif %}
-</div>
-
-<div class="pg-break"></div>
-
-<!--Shopping List-->
-<div class="flex flex-col justify-center">
-    <div class="mt-5 text-center">
-        <h1 class="font-bold text-5xl">Shopping</h1>
-    </div>
-
-    <div class="divider divider-primary w-11/12 mx-auto mt-8"></div>
-
-    {% if combined_ingredients %}
-        <div class="grid grid-cols-2 gap-y-10 justify-center text-center font-bold">
-            {% for id in combined_ingredients %}
-                <div>
-                    <h2>{{ combined_ingredients[id]['name'] }}</h2>
-                    <div class="flex flex-row flex-wrap justify-center font-light">
-                        {% for item in combined_ingredients[id]['qty'] %}
-                            <p>{{item}}{% if not loop.last %},&nbsp;{% endif %}</p>
-                        {% endfor %}
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
-</div>
-
-<div class="pg-break"></div>
-<!--Recipe Pages-->
-{% if instructions_id %}
-    {% for item in recipe_table %}
-        {% if item in instructions_id %}
-            <div class="flex flex-col justify-center">
-                
-                <div class="mt-5 text-center">
-                    <h1 class="font-bold text-5xl">{{recipe_table[item]['name']}}</h1>
-                </div>
-
-                <div class="divider divider-primary w-11/12 mx-auto mt-8"></div>
-
-                <div class="grid grid-cols-3"> 
-                    <div id="ingredients" class="flex flex-col justify-center mt-10">
-                            <ul>
-                                {% for ingredient in recipe_table[item]['ingredients'] %}
-                                    <li>{{ingredient}}</li>
-                                {% endfor %}
-                            </ul>
-                    </div>
-
-                    <div id="instructions" class="col-span-2 flex flex-col justify-center mt-10">
-                        <p>{{recipe_table[item]['instructions']}}</p>
-
-                    </div>
-                    
-
-                </div>
+        <div class="divider divider-primary w-11/12 mx-auto mt-8"></div>
+        
+        {%  if recipe_table  %}
+            <div id="recipe-names" class="flex flex-col gap-12 mt-10 justify-center text-center font-bold text-4xl">
+                {% for item in recipe_table %}
+                    <h2>{{ recipe_table[item]['name']}}</h2>
+                {% endfor %}
             </div>
-            <div class="pg-break"></div>
-
         {% endif %}
-    {% endfor %}
-{% endif %}
+    </div>
+
+    <div class="pg-break"></div>
+
+    <!--Shopping List-->
+    <div class="flex flex-col justify-center">
+        <div class="mt-5 text-center">
+            <h1 class="font-bold text-5xl">Shopping</h1>
+        </div>
+
+        <div class="divider divider-primary w-11/12 mx-auto mt-8"></div>
+
+        {% if combined_ingredients %}
+            <div class="grid grid-cols-2 gap-y-10 justify-center text-center font-bold">
+                {% for id in combined_ingredients %}
+                    <div>
+                        <h2>{{ combined_ingredients[id]['name'] }}</h2>
+                        <div class="flex flex-row flex-wrap justify-center font-light">
+                            {% for item in combined_ingredients[id]['qty'] %}
+                                <p>{{item}}{% if not loop.last %},&nbsp;{% endif %}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="pg-break"></div>
+    <!--Recipe Pages-->
+    {% if instructions_id %}
+        {% for item in recipe_table %}
+            {% if item in instructions_id %}
+                <div class="flex flex-col justify-center">
+                    
+                    <div class="mt-5 text-center">
+                        <h1 class="font-bold text-5xl">{{recipe_table[item]['name']}}</h1>
+                    </div>
+
+                    <div class="divider divider-primary w-11/12 mx-auto mt-8"></div>
+
+                    <div class="grid grid-cols-3"> 
+                        <div id="ingredients" class="flex flex-col justify-center mt-10">
+                                <ul>
+                                    {% for ingredient in recipe_table[item]['ingredients'] %}
+                                        <li>{{ingredient}}</li>
+                                    {% endfor %}
+                                </ul>
+                        </div>
+
+                        <div id="instructions" class="col-span-2 flex flex-col justify-center mt-10">
+                            <p>{{recipe_table[item]['instructions']}}</p>
+
+                        </div>
+                        
+
+                    </div>
+                </div>
+                <div class="pg-break"></div>
+
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</div>
+<script src="{{'static/js/printout.js'}}"></script>
 {% endblock content %}

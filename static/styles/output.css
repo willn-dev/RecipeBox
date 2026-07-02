@@ -1614,6 +1614,9 @@
   .w-10\/12 {
     width: calc(10 / 12 * 100%);
   }
+  .w-11\/12 {
+    width: calc(11 / 12 * 100%);
+  }
   .w-96 {
     width: calc(var(--spacing) * 96);
   }
