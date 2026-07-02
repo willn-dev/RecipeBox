@@ -302,6 +302,11 @@ def plan():
 NOTES:
 main todo:
 
+Automatic print prompt on menu, redirect on close. 
+
+dockerfile and package then separate git branches for further development while madi can still use this for now. 
+
+
 custom error pages for 404 or 500 with app.errorhandler(404) decorator etc
 Then focus on styling.
 

@@ -31,7 +31,7 @@
     <div class="mt-5 text-center">
         <h1 class="font-bold text-7xl">Menu</h1>
     </div>
-    <div class="divider divider-primary w-10/12 mx-auto mt-8"></div>
+    <div class="divider divider-primary w-11/12 mx-auto mt-8"></div>
     
     {%  if recipe_table  %}
         <div id="recipe-names" class="flex flex-col gap-12 mt-10 justify-center text-center font-bold text-4xl">
@@ -50,7 +50,7 @@
         <h1 class="font-bold text-5xl">Shopping</h1>
     </div>
 
-    <div class="divider divider-primary w-10/12 mx-auto mt-8"></div>
+    <div class="divider divider-primary w-11/12 mx-auto mt-8"></div>
 
     {% if combined_ingredients %}
         <div class="grid grid-cols-2 gap-y-10 justify-center text-center font-bold">
@@ -79,12 +79,10 @@
                     <h1 class="font-bold text-5xl">{{recipe_table[item]['name']}}</h1>
                 </div>
 
-                <div class="divider divider-primary w-10/12 mx-auto mt-8"></div>
+                <div class="divider divider-primary w-11/12 mx-auto mt-8"></div>
 
                 <div class="grid grid-cols-3"> 
-                    <div id="ingredients" class="flex flex-col justify-center">
-
-                            <h4>Ingredients<br></h4>
+                    <div id="ingredients" class="flex flex-col justify-center mt-10">
                             <ul>
                                 {% for ingredient in recipe_table[item]['ingredients'] %}
                                     <li>{{ingredient}}</li>
@@ -92,8 +90,7 @@
                             </ul>
                     </div>
 
-                    <div id="instructions" class="col-span-2 flex flex-col justify-center mt-7">
-
+                    <div id="instructions" class="col-span-2 flex flex-col justify-center mt-10">
                         <p>{{recipe_table[item]['instructions']}}</p>
 
                     </div>
@@ -106,5 +103,4 @@
         {% endif %}
     {% endfor %}
 {% endif %}
-
 {% endblock content %}
