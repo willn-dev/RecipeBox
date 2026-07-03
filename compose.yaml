@@ -17,7 +17,7 @@ services:
     env_file: '.env'
     
     volumes:
-      - ./schema_init.sql:/docker-entrypoint-initdb.d/
+      - ./schema_init.sql:/docker-entrypoint-initdb.d/schema_init.sql
       - postgres_data:/var/lib/postgresql/data
       
     restart: unless-stopped
