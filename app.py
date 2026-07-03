@@ -1,17 +1,18 @@
 from flask import Flask, render_template, request, url_for, redirect, jsonify, session
 import os
 import psycopg2
+from psycopg2 import pool
 import datetime
 import json
 
 #------------------------------------------------------------------------------------------------------
 app = Flask(__name__)
-pool = psycopg2.pool.SimpleConnectionPool(1, 10, os.environ['DATABASE_URL'])
+connection_pool = pool.SimpleConnectionPool(1, 10, os.environ['DATABASE_URL'])
 
 
 def get_db_connection():
 
-    conn = pool.getconn()
+    conn = connection_pool.getconn()
     return conn
 
 
@@ -29,7 +30,7 @@ def edit():
         cur.execute('SELECT name, recipe_id FROM recipes;')
         recipes = cur.fetchall()
         cur.close()
-        pool.putconn(conn)
+        connection_pool.putconn(conn)
         return render_template('edit.html', recipes=recipes)
     
     elif request.method == 'POST':
@@ -57,7 +58,7 @@ def edit():
         
         finally:
             cur.close()
-            pool.putconn(conn)
+            connection_pool.putconn(conn)
 
 
 
@@ -116,7 +117,7 @@ def newrecipe():
 
             finally:
                 cur.close()
-                pool.putconn(conn)
+                connection_pool.putconn(conn)
 
         else:
             try:
@@ -163,7 +164,7 @@ def newrecipe():
 
             finally:
                 cur.close()
-                pool.putconn(conn)
+                connection_pool.putconn(conn)
 
 
     return render_template('add_recipes.html')
@@ -204,7 +205,7 @@ def delete():
 
         finally:
             cur.close()
-            pool.putconn(conn)
+            connection_pool.putconn(conn)
 
 
 #TODO:
@@ -258,7 +259,7 @@ def plan():
 
         finally:
             cur.close()
-            pool.putconn(conn)
+            connection_pool.putconn(conn)
     
 
     #-------POST ROUTE FOR PLAN--------------------------------------------------------------------------------------
@@ -299,7 +300,7 @@ def plan():
             return render_template('menu.html', recipe_table=recipe_table, combined_ingredients=combined_ingredients, instructions_id=instructions_id)
     finally:
         cur.close()
-        pool.putconn(conn)
+        connection_pool.putconn(conn)
 #------------------------------------------------------------------------------------------------------
 '''
 NOTES:
