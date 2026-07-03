@@ -310,3 +310,5 @@ settings dropdown to change the theme then saves via flask sessions.
 bundle to docker.
 '''
 #------------------------------------------------------------------------------------------------------
+
+'''issue where traffic is not reaching device. could it be firewall is stopping it? is it set to local host?'''

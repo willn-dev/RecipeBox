@@ -2,24 +2,32 @@ services:
   app:
     build: .
 
-    ports: 
+    ports:
       - 8000:8000 # change the leftmost port with your desired host port
 
     env_file: '.env'
 
-    depends_on: 
-      - db
+    depends_on:
+      db:
+        condition: service_healthy
 
     restart: unless-stopped
 
   db:
     image: postgres:16.2
     env_file: '.env'
-    
+
     volumes:
       - ./schema_init.sql:/docker-entrypoint-initdb.d/schema_init.sql
       - postgres_data:/var/lib/postgresql/data
-      
+
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "default_user"]
+
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
     restart: unless-stopped
 
 
