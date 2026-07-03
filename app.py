@@ -7,13 +7,16 @@ import json
 
 #------------------------------------------------------------------------------------------------------
 app = Flask(__name__)
-connection_pool = pool.SimpleConnectionPool(1, 10, os.environ['DATABASE_URL'])
+connection_pool = pool.SimpleConnectionPool(2, 20, os.environ['DATABASE_URL'])
 
 
 def get_db_connection():
 
     conn = connection_pool.getconn()
     return conn
+
+def release_db_conn(conn):
+    connection_pool.putconn(conn)
 
 
 @app.route("/")
@@ -24,19 +27,19 @@ def index():
 @app.route('/edit', methods=['GET', 'POST'])
 def edit():
     conn = get_db_connection()
-    cur = conn.cursor()
+    cur = None
 
-    if request.method == 'GET':
-        cur.execute('SELECT name, recipe_id FROM recipes;')
-        recipes = cur.fetchall()
-        cur.close()
-        connection_pool.putconn(conn)
-        return render_template('edit.html', recipes=recipes)
-    
-    elif request.method == 'POST':
-        recipe_id = request.form['recipe_id']
+    try: 
+        cur = conn.cursor()
 
-        try:
+        if request.method == 'GET':
+            cur.execute('SELECT name, recipe_id FROM recipes;')
+            recipes = cur.fetchall()
+            return render_template('edit.html', recipes=recipes)
+        
+        elif request.method == 'POST':
+            recipe_id = request.form['recipe_id']
+
             cur.execute('SELECT * FROM recipes WHERE recipe_id = %s;', (recipe_id,))
             recipies_table = cur.fetchall()
 
@@ -51,14 +54,15 @@ def edit():
             print(recipies_table)
             return render_template('add_recipes.html', recipes_table=recipies_table, join_table=join_table, recipe_id=recipe_id)
         
-        except Exception as e:
+    except Exception as e:
             conn.rollback()
             print(f"ERROR: {e}")
             return redirect(url_for('edit'))
         
-        finally:
+    finally:
+        if cur:
             cur.close()
-            connection_pool.putconn(conn)
+        release_db_conn(conn)
 
 
 
