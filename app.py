@@ -9,10 +9,7 @@ app = Flask(__name__)
 
 def get_db_connection():
 
-    conn = psycopg2.connect(host='localhost',
-                            database='recipebowl',
-                            user=os.environ['DB_USERNAME'],
-                            password=os.environ['DB_PASSWORD'])
+    conn = psycopg2.connect(os.environ['DATABASE_URL'])
     return conn
 
 
@@ -301,8 +298,6 @@ def plan():
 '''
 NOTES:
 main todo:
-
-Automatic print prompt on menu, redirect on close. 
 
 dockerfile and package then separate git branches for further development while madi can still use this for now. 
 

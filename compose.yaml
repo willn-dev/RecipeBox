@@ -1,0 +1,27 @@
+services:
+  app:
+    build: .
+
+    ports: 
+      - 8000:8000 # change the leftmost port with your desired host port
+
+    env_file: '.env'
+
+    depends_on: 
+      - db
+
+    restart: unless-stopped
+
+  db:
+    image: postgres:16.2
+    env_file: '.env'
+    
+    volumes:
+      - ./schema_init.sql:/docker-entrypoint-initdb.d/
+      - postgres_data:/var/lib/postgresql/data
+      
+    restart: unless-stopped
+
+
+volumes:
+  postgres_data:
