@@ -159,28 +159,6 @@ ALTER TABLE ONLY public.recipes_ingredients
 ALTER TABLE ONLY public.recipes_ingredients
     ADD CONSTRAINT recipes_ingredients_recipe_id_fkey FOREIGN KEY (recipe_id) REFERENCES public.recipes(recipe_id) ON DELETE CASCADE;
 
-
---
--- Name: TABLE ingredients; Type: ACL; Schema: public; Owner: -
---
-
-GRANT ALL ON TABLE public.ingredients TO admin;
-
-
---
--- Name: TABLE recipes; Type: ACL; Schema: public; Owner: -
---
-
-GRANT ALL ON TABLE public.recipes TO admin;
-
-
---
--- Name: TABLE recipes_ingredients; Type: ACL; Schema: public; Owner: -
---
-
-GRANT ALL ON TABLE public.recipes_ingredients TO admin;
-
-
 --
 -- PostgreSQL database dump complete
 --
