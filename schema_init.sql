@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict LJcwXwaTl1e9OucZbx6MiJyDccHIihfHg0LXdYJdT3BzogtSbltnriZIEqPhkCd
+
 
 -- Dumped from database version 16.13 (Homebrew)
 -- Dumped by pg_dump version 16.13 (Homebrew)
@@ -185,5 +185,5 @@ GRANT ALL ON TABLE public.recipes_ingredients TO admin;
 -- PostgreSQL database dump complete
 --
 
-\unrestrict LJcwXwaTl1e9OucZbx6MiJyDccHIihfHg0LXdYJdT3BzogtSbltnriZIEqPhkCd
+
 
