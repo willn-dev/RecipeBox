@@ -6,10 +6,12 @@ import json
 
 #------------------------------------------------------------------------------------------------------
 app = Flask(__name__)
+pool = psycopg2.pool.SimpleConnectionPool(1, 10, os.environ['DATABASE_URL'])
+
 
 def get_db_connection():
 
-    conn = psycopg2.connect(os.environ['DATABASE_URL'])
+    conn = pool.getconn()
     return conn
 
 
@@ -27,7 +29,7 @@ def edit():
         cur.execute('SELECT name, recipe_id FROM recipes;')
         recipes = cur.fetchall()
         cur.close()
-        conn.close()
+        pool.putconn(conn)
         return render_template('edit.html', recipes=recipes)
     
     elif request.method == 'POST':
@@ -55,7 +57,7 @@ def edit():
         
         finally:
             cur.close()
-            conn.close()
+            pool.putconn(conn)
 
 
 
@@ -114,7 +116,7 @@ def newrecipe():
 
             finally:
                 cur.close()
-                conn.close()
+                pool.putconn(conn)
 
         else:
             try:
@@ -161,7 +163,7 @@ def newrecipe():
 
             finally:
                 cur.close()
-                conn.close()
+                pool.putconn(conn)
 
 
     return render_template('add_recipes.html')
@@ -202,7 +204,7 @@ def delete():
 
         finally:
             cur.close()
-            conn.close()
+            pool.putconn(conn)
 
 
 #TODO:
@@ -255,45 +257,49 @@ def plan():
             return redirect('error/loaderror')
 
         finally:
-            conn.close()
             cur.close()
+            pool.putconn(conn)
     
 
     #-------POST ROUTE FOR PLAN--------------------------------------------------------------------------------------
-    if request.method == 'POST':
-        plan = json.loads(request.form.get('plan-array'))
-        instructions_id = json.loads(request.form.get('checkbox_value'))
+    try:
+        if request.method == 'POST':
+            plan = json.loads(request.form.get('plan-array'))
+            instructions_id = json.loads(request.form.get('checkbox_value'))
 
-        cur.execute('SELECT * FROM recipes WHERE recipe_id IN %s', (tuple(plan),))
-        return_result = cur.fetchall()
+            cur.execute('SELECT * FROM recipes WHERE recipe_id IN %s', (tuple(plan),))
+            return_result = cur.fetchall()
 
-        recipe_table = {}
-        combined_ingredients = {}
-        
-        #create recipe table
-
-        for id, name, instructions in return_result:
-            recipe_table[id] = {'name':name, 'instructions':instructions, 'ingredients': [], }
-
-
-        cur.execute('SELECT recipe_id, ingredients.name, recipes_ingredients.ingredient_id, quantity FROM recipes_ingredients ' \
-        'INNER JOIN ingredients ON recipes_ingredients.ingredient_id = ingredients.ingredient_id ' \
-        'WHERE recipe_id IN %s', (tuple(plan),))
-       
-        ing_return = cur.fetchall()
-
-        for rec_id, ing_name, ing_id, qty in ing_return:
-
-            formatted_ing = f'{ing_name} - {str(qty)}'
-            recipe_table[rec_id]['ingredients'].append(formatted_ing)
+            recipe_table = {}
+            combined_ingredients = {}
             
-            if ing_id in combined_ingredients:
-                combined_ingredients[ing_id]['qty'].append(qty)
-            else:
-                combined_ingredients[ing_id] = {'name': ing_name, 'qty':[qty]}
+            #create recipe table
 
-        print(ing_return)
-        return render_template('menu.html', recipe_table=recipe_table, combined_ingredients=combined_ingredients, instructions_id=instructions_id)
+            for id, name, instructions in return_result:
+                recipe_table[id] = {'name':name, 'instructions':instructions, 'ingredients': [], }
+
+
+            cur.execute('SELECT recipe_id, ingredients.name, recipes_ingredients.ingredient_id, quantity FROM recipes_ingredients ' \
+            'INNER JOIN ingredients ON recipes_ingredients.ingredient_id = ingredients.ingredient_id ' \
+            'WHERE recipe_id IN %s', (tuple(plan),))
+        
+            ing_return = cur.fetchall()
+
+            for rec_id, ing_name, ing_id, qty in ing_return:
+
+                formatted_ing = f'{ing_name} - {str(qty)}'
+                recipe_table[rec_id]['ingredients'].append(formatted_ing)
+                
+                if ing_id in combined_ingredients:
+                    combined_ingredients[ing_id]['qty'].append(qty)
+                else:
+                    combined_ingredients[ing_id] = {'name': ing_name, 'qty':[qty]}
+
+            print(ing_return)
+            return render_template('menu.html', recipe_table=recipe_table, combined_ingredients=combined_ingredients, instructions_id=instructions_id)
+    finally:
+        cur.close()
+        pool.putconn(conn)
 #------------------------------------------------------------------------------------------------------
 '''
 NOTES:
@@ -310,5 +316,3 @@ settings dropdown to change the theme then saves via flask sessions.
 bundle to docker.
 '''
 #------------------------------------------------------------------------------------------------------
-
-'''issue where traffic is not reaching device. could it be firewall is stopping it? is it set to local host?'''
