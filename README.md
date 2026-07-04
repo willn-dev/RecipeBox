@@ -42,3 +42,9 @@ docker compose up -d
 try visiting the site in your browser http://yourhost:8127
 
 Contact me if you need any help!
+
+
+
+# Roadmap
+
+* calendar integration
